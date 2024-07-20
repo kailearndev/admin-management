@@ -1,13 +1,11 @@
 import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { HiBars3CenterLeft } from 'react-icons/hi2';
 import { DiReact } from 'react-icons/di';
-import { HiSearch, HiOutlineBell } from 'react-icons/hi';
+import { HiBars3CenterLeft } from 'react-icons/hi2';
 import { RxEnterFullScreen, RxExitFullScreen } from 'react-icons/rx';
+import { Link, useNavigate } from 'react-router-dom';
 import ChangeThemes from './ChangesThemes';
-import toast from 'react-hot-toast';
-import { menu } from './menu/data';
 import MenuItem from './menu/MenuItem';
+import { menu } from './menu/data';
 
 const Navbar = () => {
   const [isFullScreen, setIsFullScreen] = React.useState(true);

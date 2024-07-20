@@ -1,4 +1,4 @@
-import { UserType, UserUpdateType } from "../pages/User/type"
+import { UserUpdateType } from "../pages/User/type"
 import http from "./api"
 
 const getUser = async () => {

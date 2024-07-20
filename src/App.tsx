@@ -1,30 +1,29 @@
 // import React from 'react';
 import {
-  createBrowserRouter,
-  RouterProvider,
   Outlet,
+  RouterProvider,
   ScrollRestoration,
+  createBrowserRouter,
 } from 'react-router-dom';
-import Home from './pages/Home';
-import Users from './pages/Users';
-import Products from './pages/Products';
-import Navbar from './components/Navbar';
 import Footer from './components/Footer';
+import Navbar from './components/Navbar';
+import ToasterProvider from './components/ToasterProvider';
 import Menu from './components/menu/Menu';
-import Error from './pages/Error';
-import Profile from './pages/User/Profile';
-import Orders from './pages/Orders';
-import Posts from './pages/Posts';
-import Notes from './pages/Notes';
+import Login from './pages/Auth/Login';
 import Calendar from './pages/Calendar';
 import Charts from './pages/Charts';
+import Error from './pages/Error';
 import Logs from './pages/Logs';
-import ToasterProvider from './components/ToasterProvider';
-import EditProfile from './pages/User/EditProfile';
-import User from './pages/User';
+import Notes from './pages/Notes';
+import Orders from './pages/Orders';
+import Posts from './pages/Posts';
 import Product from './pages/Product';
-import Login from './pages/Auth/Login';
+import Products from './pages/Products';
 import ProtectPage from './pages/ProtectLayout';
+import User from './pages/User';
+import EditProfile from './pages/User/EditProfile';
+import Profile from './pages/User/Profile';
+import Users from './pages/Users';
 
 function App() {
 

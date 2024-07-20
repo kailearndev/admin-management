@@ -1,5 +1,4 @@
-import React from 'react';
-import { Navigate, Outlet, useOutlet } from 'react-router-dom';
+import { Navigate, Outlet } from 'react-router-dom';
 
 const ProtectPage = () => {
     let token = localStorage.getItem('token')
