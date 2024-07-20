@@ -31,8 +31,8 @@ http.interceptors.response.use(
     },
     (reject) => {
         if (reject?.response?.status === 401 || reject?.response?.status === 403) {
-            if (reject?.response?.status === 401 || reject?.response?.status === 403)
-                localStorage.removeItem('token')
+
+            localStorage.removeItem('token')
             window.location.href = '/login'
 
 
