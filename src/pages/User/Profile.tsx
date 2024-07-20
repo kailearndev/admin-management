@@ -47,7 +47,7 @@ const Profile = () => {
           </h2>
           <div className="w-full xl:w-auto grid grid-cols-2 xl:flex gap-3">
             <button
-              onClick={() => navigate(`${formik.values.id}`)}
+              onClick={() => navigate(`${formik.values?.id}`)}
               className="btn btn-block xl:w-auto dark:btn-neutral"
             >
               Edit
@@ -63,7 +63,7 @@ const Profile = () => {
             <div className="avatar">
               <div className="w-24 xl:w-36 2xl:w-48 rounded-full">
                 <img
-                  src={formik.values.urlProfilePicture}
+                  src={formik.values?.urlProfilePicture}
                   alt="foto-cowok-ganteng"
                 />
               </div>
@@ -74,7 +74,7 @@ const Profile = () => {
           {/* Heading */}
           <div className="flex flex-col items-start gap-1">
             <h3 className="font-semibold text-xl xl:text-3xl uppercase">
-              {formik.values.firstName}   {formik.values.lastName}
+              {formik.values?.firstName}   {formik.values?.lastName}
 
             </h3>
             <span className="font-normal text-base">Student</span>
@@ -104,7 +104,7 @@ const Profile = () => {
                   readOnly
                   type="text"
                   placeholder="Type here"
-                  value={formik.values.firstName}
+                  value={formik.values?.firstName}
                   className="input input-bordered w-full col-span-2 2xl:col-span-3"
                 />
               </div>
@@ -119,7 +119,7 @@ const Profile = () => {
                   readOnly
                   type="text"
                   placeholder="Type here"
-                  value={formik.values.lastName}
+                  value={formik.values?.lastName}
                   className="input input-bordered w-full col-span-2 2xl:col-span-3"
                 />
               </div>
@@ -130,7 +130,7 @@ const Profile = () => {
                 <input
                   type="text"
                   placeholder="Type here"
-                  value={formik.values.nationality}
+                  value={formik.values?.nationality}
                   readOnly
                   className="input input-bordered w-full col-span-2 2xl:col-span-3"
                 />
@@ -143,7 +143,7 @@ const Profile = () => {
                 <input
                   type="text"
                   placeholder="Type here"
-                  value={dayjs(formik.values.dateOfBirth).format('YYYY/MM/DD')}
+                  value={dayjs(formik.values?.dateOfBirth).format('YYYY/MM/DD')}
                   readOnly
                   className="input input-bordered w-full col-span-2 2xl:col-span-3"
                 />
@@ -156,7 +156,7 @@ const Profile = () => {
                   maxLength={12}
                   type="text"
                   placeholder="Type here"
-                  value={formik.values.instagramUrl}
+                  value={formik.values?.instagramUrl}
                   readOnly
                   className="input input-bordered w-full col-span-2 2xl:col-span-3"
                 />
@@ -171,7 +171,7 @@ const Profile = () => {
 
                   className="textarea textarea-bordered w-full col-span-2 2xl:col-span-3"
                   placeholder="Address"
-                  value={formik.values.address}
+                  value={formik.values?.address}
 
                 ></textarea>
 
@@ -183,10 +183,10 @@ const Profile = () => {
                 </div>
                 <img
                   onClick={() => {
-                    setUrlPreview(formik.values.urlHelloPicture),
+                    setUrlPreview(formik.values?.urlHelloPicture),
                       openModal()
                   }}
-                  className="cursor-pointer h-20 max-w-xl aspect-square rounded-lg shadow-xl dark:shadow-gray-800" src={formik.values.urlHelloPicture} alt="image description" />
+                  className="cursor-pointer h-20 max-w-xl aspect-square rounded-lg shadow-xl dark:shadow-gray-800" src={formik.values?.urlHelloPicture} alt="image description" />
 
               </div>
               <div className="w-full grid sm:col-span-full xl:grid-cols-3 2xl:grid-cols-4 xl:items-start gap-1 xl:gap-0 ">
@@ -195,8 +195,8 @@ const Profile = () => {
                 </div>
 
                 {/* {
-                  formik.values.skills.length ?
-                    formik.values.skills.map((item) =>
+                  formik.values?.skills.length ?
+                    formik.values?.skills.map((item) =>
                       <div className='flex  p-[1rem] rounded-md border-[1px] gap-2 '>
                         <div className="w-full whitespace-nowrap " key={item.order}>
                           <span className="whitespace-nowrap font-medium">{item.name}</span>
@@ -243,7 +243,7 @@ const Profile = () => {
 
                   type="text"
                   placeholder="Type here"
-                  value={formik.values.gender === 0 ? 'Male' : 'Female'}
+                  value={formik.values?.gender === 0 ? 'Male' : 'Female'}
                   readOnly
                   className="input input-bordered w-full col-span-2 2xl:col-span-3"
                 />
@@ -256,7 +256,7 @@ const Profile = () => {
 
                   type="text"
                   placeholder="Type here"
-                  value={formik.values.email}
+                  value={formik.values?.email}
                   readOnly
                   className="input input-bordered w-full col-span-2 2xl:col-span-3"
                 />
@@ -270,7 +270,7 @@ const Profile = () => {
                   maxLength={12}
                   type="text"
                   placeholder="Type here"
-                  value={formik.values.phone}
+                  value={formik.values?.phone}
                   readOnly
                   className="input input-bordered w-full col-span-2 2xl:col-span-3"
                 />
@@ -286,7 +286,7 @@ const Profile = () => {
                   maxLength={12}
                   type="text"
                   placeholder="Type here"
-                  value={formik.values.facebookUrl}
+                  value={formik.values?.facebookUrl}
                   readOnly
                   className="input input-bordered w-full col-span-2 2xl:col-span-3"
                 />
@@ -299,7 +299,7 @@ const Profile = () => {
                   maxLength={12}
                   type="text"
                   placeholder="Type here"
-                  value={formik.values.twitterUrl}
+                  value={formik.values?.twitterUrl}
                   readOnly
                   className="input input-bordered w-full col-span-2 2xl:col-span-3"
                 />
@@ -314,7 +314,7 @@ const Profile = () => {
 
                   className="textarea textarea-bordered w-full col-span-2 2xl:col-span-3"
                   placeholder="Bio"
-                  value={formik.values.bio}
+                  value={formik.values?.bio}
 
                 ></textarea>
 
@@ -327,10 +327,10 @@ const Profile = () => {
                 </div>
                 <img
                   onClick={() => {
-                    setUrlPreview(formik.values.urlProfilePicture),
+                    setUrlPreview(formik.values?.urlProfilePicture),
                       openModal()
                   }}
-                  className=" cursor-pointer h-20 max-w-xl aspect-square  rounded-lg shadow-xl dark:shadow-gray-800" src={formik.values.urlProfilePicture} alt="image description" />
+                  className=" cursor-pointer h-20 max-w-xl aspect-square  rounded-lg shadow-xl dark:shadow-gray-800" src={formik.values?.urlProfilePicture} alt="image description" />
 
               </div>
               <div className="w-full grid xl:grid-cols-3 2xl:grid-cols-4 items-center gap-1 xl:gap-0">

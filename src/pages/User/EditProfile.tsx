@@ -188,7 +188,7 @@ const EditProfile = () => {
 
                     formik.values?.urlProfilePicture
                   }
-                  alt={formik.values.urlProfilePicture}
+                  alt={formik.values?.urlProfilePicture}
                 />
               </div>
             </div>
@@ -198,7 +198,7 @@ const EditProfile = () => {
           {/* Heading */}
           <div className="flex flex-col items-start gap-1">
             <h3 className="font-semibold text-xl xl:text-3xl uppercase">
-              {formik.values.firstName} {formik.values.lastName}
+              {formik.values?.firstName} {formik.values?.lastName}
             </h3>
             <span className="font-normal text-base">Student</span>
           </div>
@@ -228,7 +228,7 @@ const EditProfile = () => {
                   name='firstName'
                   type="text"
                   placeholder="Type here"
-                  value={formik.values.firstName}
+                  value={formik.values?.firstName}
                   className=
                   {
                     `input input-bordered w-full col-span-2 2xl:col-span-3 ${formik.errors.firstName ? 'input-error' : ''}`
@@ -247,7 +247,7 @@ const EditProfile = () => {
                   name='lastName'
                   type="text"
                   placeholder="Type here"
-                  value={formik.values.lastName}
+                  value={formik.values?.lastName}
                   className={
                     `input input-bordered w-full col-span-2 2xl:col-span-3 ${formik.errors.lastName ? 'input-error' : ''}`
                   }
@@ -260,7 +260,7 @@ const EditProfile = () => {
                 <input
                   type="text"
                   placeholder="Type here"
-                  value={formik.values.nationality}
+                  value={formik.values?.nationality}
                   onChange={formik.handleChange}
                   name='nationality'
                   className=
@@ -281,7 +281,7 @@ const EditProfile = () => {
                   name='dateOfBirth'
                   type="date"
                   placeholder="Type here"
-                  value={dayjs(formik.values.dateOfBirth).format('YYYY-MM-DD')}
+                  value={dayjs(formik.values?.dateOfBirth).format('YYYY-MM-DD')}
 
                   className=
                   {
@@ -297,7 +297,7 @@ const EditProfile = () => {
                   maxLength={12}
                   type="text"
                   placeholder="Type here"
-                  value={formik.values.instagramUrl}
+                  value={formik.values?.instagramUrl}
                   onChange={formik.handleChange}
                   name='instagramUrl'
                   className="input input-bordered w-full col-span-2 2xl:col-span-3"
@@ -314,7 +314,7 @@ const EditProfile = () => {
                   name='address'
                   className="textarea textarea-bordered w-full col-span-2 2xl:col-span-3"
                   placeholder="Type here"
-                  value={formik.values.address}
+                  value={formik.values?.address}
 
                 ></textarea>
 
@@ -329,15 +329,15 @@ const EditProfile = () => {
                     <img
                       className=' rounded-md cursor-pointer'
                       onClick={() => {
-                        setUrlPreview(formik.values.urlHelloPicture),
+                        setUrlPreview(formik.values?.urlHelloPicture),
                           openModal()
                       }}
 
                       src={
                         previewTop ? previewTop :
-                          formik.values.urlHelloPicture
+                          formik.values?.urlHelloPicture
                       }
-                      alt={formik.values.altHelloPicture}
+                      alt={formik.values?.altHelloPicture}
                     />
 
                   </div>
@@ -370,8 +370,8 @@ const EditProfile = () => {
                 </div>
 
                 {
-                  // formik.values.skills.length ?
-                  //   formik.values.skills.map((item) =>
+                  // formik.values?.skills.length ?
+                  //   formik.values?.skills.map((item) =>
                   //     <div className='col-span-full'>
                   //       <div className="w-full whitespace-nowrap " key={item.order}>
                   //         <span className="whitespace-nowrap font-medium">{item.name}</span>
@@ -416,7 +416,7 @@ const EditProfile = () => {
                 </div>
                 <select className="select select-bordered w-full max-w-xs"
                   name='gender'
-                  value={formik.values.gender}
+                  value={formik.values?.gender}
                   onChange={(e) => {
                     formik.setFieldValue('gender', e.target.value)
                   }
@@ -434,7 +434,7 @@ const EditProfile = () => {
 
                   type="text"
                   placeholder="Type here"
-                  value={formik.values.email}
+                  value={formik.values?.email}
                   onChange={formik.handleChange}
                   name='email'
                   className="input input-bordered w-full col-span-2 2xl:col-span-3"
@@ -449,7 +449,7 @@ const EditProfile = () => {
                   maxLength={12}
                   type="text"
                   placeholder="Type here"
-                  value={formik.values.phone}
+                  value={formik.values?.phone}
                   onChange={formik.handleChange}
                   name='phone'
                   className="input input-bordered w-full col-span-2 2xl:col-span-3"
@@ -466,7 +466,7 @@ const EditProfile = () => {
                   maxLength={12}
                   type="text"
                   placeholder="Type here"
-                  value={formik.values.facebookUrl}
+                  value={formik.values?.facebookUrl}
                   onChange={formik.handleChange}
                   name='facebookUrl'
 
@@ -481,7 +481,7 @@ const EditProfile = () => {
                   maxLength={12}
                   type="text"
                   placeholder="Type here"
-                  value={formik.values.twitterUrl}
+                  value={formik.values?.twitterUrl}
                   onChange={formik.handleChange}
                   name='twitterUrl'
                   className="input input-bordered w-full col-span-2 2xl:col-span-3"
@@ -497,7 +497,7 @@ const EditProfile = () => {
                   name='bio'
                   className="textarea textarea-bordered w-full col-span-2 2xl:col-span-3"
                   placeholder="Bio"
-                  value={formik.values.bio}
+                  value={formik.values?.bio}
 
                 ></textarea>
 
@@ -519,9 +519,9 @@ const EditProfile = () => {
 
                       src={
                         previewProfile ? previewProfile :
-                          formik.values.urlProfilePicture
+                          formik.values?.urlProfilePicture
                       }
-                      alt={formik.values.altProfilePicture}
+                      alt={formik.values?.altProfilePicture}
                     />
 
                   </div>
