@@ -11,19 +11,11 @@ import ToasterProvider from './components/ToasterProvider';
 import Menu from './components/menu/Menu';
 import Login from './pages/Auth/Login';
 import Calendar from './pages/Calendar';
-import Charts from './pages/Charts';
 import Error from './pages/Error';
-import Logs from './pages/Logs';
-import Notes from './pages/Notes';
 import Orders from './pages/Orders';
-import Posts from './pages/Posts';
-import Product from './pages/Product';
-import Products from './pages/Products';
 import ProtectPage from './pages/ProtectLayout';
-import User from './pages/User';
 import EditProfile from './pages/User/EditProfile';
 import Profile from './pages/User/Profile';
-import Users from './pages/Users';
 
 function App() {
 
@@ -66,54 +58,60 @@ function App() {
             element: <Profile />,
           },
           {
-            path: '/:id',
+            path: ':id',
             element: <EditProfile />,
           },
+          // {
+          //   path: '/users',
+          //   element: <Users />,
+          // },
+          // {
+          //   path: '/users/:id',
+          //   element: <User />,
+          // },
           {
-            path: '/users',
-            element: <Users />,
-          },
-          {
-            path: '/users/:id',
-            element: <User />,
-          },
-          {
-            path: '/products',
-            element: <Products />,
-          },
-          {
-            path: '/products/:id',
-            element: <Product />,
-          },
-          {
-            path: '/orders',
+            path: '/activities',
             element: <Orders />,
           },
           {
-            path: '/posts',
-            element: <Posts />,
+            path: '/products/:id',
+            element: <Orders />,
           },
           {
-            path: '/notes',
-            element: <Notes />,
-          },
-          {
-            path: '/calendar',
+            path: '/education',
             element: <Calendar />,
           },
-          {
-            path: '/charts',
-            element: <Charts />,
-          },
-          {
-            path: '/logs',
-            element: <Logs />,
-          },
+
+          // {
+          //   path: '/orders',
+          //   element: <Orders />,
+          // },
+          // {
+          //   path: '/posts',
+          //   element: <Posts />,
+          // },
+          // {
+          //   path: '/notes',
+          //   element: <Notes />,
+          // },
+          // {
+          //   path: '/calendar',
+          //   element: <Calendar />,
+          // },
+          // {
+          //   path: '/charts',
+          //   element: <Charts />,
+          // },
+          // {
+          //   path: '/logs',
+          //   element: <Logs />,
+          // },
         ]
       }],
 
       errorElement: <Error />,
     },
+
     {
       path: '/login',
       element: <Login />,

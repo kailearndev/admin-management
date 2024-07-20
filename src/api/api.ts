@@ -1,4 +1,5 @@
 import axios from 'axios'
+import toast from 'react-hot-toast'
 
 
 const http = axios.create({
@@ -19,6 +20,7 @@ http.interceptors.request.use(
         return config
     },
     function (error) {
+        toast('ss')
         return Promise.reject(error?.message)
     }
 )
@@ -28,11 +30,13 @@ http.interceptors.response.use(
         return response.data
     },
     (reject) => {
-        if (reject?.response?.status === 401 || reject?.response?.status === 403)
-            // localStorage.removeItem('token')
-            // window.location.href = '/login'
+        if (reject?.response?.status === 401 || reject?.response?.status === 403 || reject?.response?.status === 503)
+            localStorage.removeItem('token')
+        window.location.href = '/login'
 
-            return Promise.reject
+
+
+        return Promise.reject
     }
 )
 
