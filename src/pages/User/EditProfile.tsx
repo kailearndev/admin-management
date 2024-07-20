@@ -21,6 +21,12 @@ const EditProfile = () => {
   const [selectedFileProfile, setSelectedFileProfile] = React.useState<File | null>(
     null
   );
+  const [pictureEdit, setPictureEdit] = React.useState<boolean>(
+    false
+  );
+  const [topPictureEdit, setTopPictureEdit] = React.useState<boolean>(
+    false
+  );
   const [loadingTopPicture, setLoadingTopPicture] = React.useState<boolean>(
     false
   );
@@ -32,6 +38,9 @@ const EditProfile = () => {
   const handleFileSelectProfile = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       const imageUpload = e.target.files[0];
+      if (imageUpload) {
+        setPictureEdit(true)
+      }
       setSelectedFileProfile(imageUpload);
       setPreviewProfile(URL.createObjectURL(imageUpload));
 
@@ -41,6 +50,9 @@ const EditProfile = () => {
   const handleFileSelectTop = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       const imageUpload = e.target.files[0];
+      if (imageUpload) {
+        setTopPictureEdit(true)
+      }
       setSelectedFile(imageUpload);
       setPreviewTop(URL.createObjectURL(imageUpload));
 
@@ -148,7 +160,6 @@ const EditProfile = () => {
   })
 
 
-  console.log(formik.errors);
 
   return (
     // screen
@@ -329,7 +340,7 @@ const EditProfile = () => {
                     <img
                       className=' rounded-md cursor-pointer'
                       onClick={() => {
-                        setUrlPreview(formik.values?.urlHelloPicture),
+                        setUrlPreview(previewTop ? previewTop : formik.values?.urlHelloPicture),
                           openModal()
                       }}
 
@@ -345,7 +356,7 @@ const EditProfile = () => {
                     <div onClick={handleIconClickTop}><button className="btn btn-active btn-warning btn-xs sm:btn-md">Edit</button></div>
                     <div onClick={handleUploadfile}>
                       <button
-
+                        disabled={!topPictureEdit}
                         className="btn btn-active  btn-success btn-xs sm:btn-md">
 
                         {loadingTopPicture ? <span className="loading loading-spinner"></span> : <>Save</>}
@@ -513,7 +524,7 @@ const EditProfile = () => {
                     <img
                       className=' rounded-md cursor-pointer'
                       onClick={() => {
-                        setUrlPreview(formik.values?.urlProfilePicture),
+                        setUrlPreview(previewProfile ? previewProfile : formik.values?.urlProfilePicture),
                           openModal()
                       }}
 
@@ -527,7 +538,9 @@ const EditProfile = () => {
                   </div>
                   <div className='flex gap-3'>
                     <div onClick={handleIconClickProfile}><button className="btn btn-active btn-warning btn-xs sm:btn-md">Edit</button></div>
-                    <div onClick={handleUploadfileProfile}><button className="btn btn-active  btn-success btn-xs sm:btn-md">
+                    <div onClick={handleUploadfileProfile}><button
+                      disabled={!pictureEdit}
+                      className="btn btn-active  btn-success btn-xs sm:btn-md">
 
                       {loadingProfilePicture ? <span className="loading loading-spinner"></span> : <>Save</>}
                     </button></div>

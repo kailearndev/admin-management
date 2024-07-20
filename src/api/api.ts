@@ -38,7 +38,7 @@ http.interceptors.response.use(
         }
 
 
-
+        localStorage.removeItem('token')
         return Promise.reject
     }
 )
