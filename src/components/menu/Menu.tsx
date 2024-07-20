@@ -4,7 +4,7 @@ import MenuItem from './MenuItem';
 
 const Menu = () => {
   return (
-    <div className="w-full">
+    <div className="2xl:w-[200px] lg:w-[160px] fixed">
       <div className="w-full flex flex-col gap-5">
         {menu.map((item, index) => (
           <MenuItem

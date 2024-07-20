@@ -12,7 +12,7 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Menu from './components/menu/Menu';
 import Error from './pages/Error';
-import Profile from './pages/Profile';
+import Profile from './pages/User/Profile';
 import Orders from './pages/Orders';
 import Posts from './pages/Posts';
 import Notes from './pages/Notes';
@@ -20,12 +20,15 @@ import Calendar from './pages/Calendar';
 import Charts from './pages/Charts';
 import Logs from './pages/Logs';
 import ToasterProvider from './components/ToasterProvider';
-import EditProfile from './pages/EditProfile';
+import EditProfile from './pages/User/EditProfile';
 import User from './pages/User';
 import Product from './pages/Product';
-import Login from './pages/Login';
+import Login from './pages/Auth/Login';
+import ProtectPage from './pages/ProtectLayout';
 
 function App() {
+
+
   const Layout = () => {
     return (
       <div
@@ -53,59 +56,63 @@ function App() {
   const router = createBrowserRouter([
     {
       path: '/',
-      element: <Layout />,
-      children: [
+      element: <ProtectPage />,
+      children: [{
+        element: <Layout />,
+        children: [
 
-        {
+          {
+            index: true,
+            path: '/',
+            element: <Profile />,
+          },
+          {
+            path: '/:id',
+            element: <EditProfile />,
+          },
+          {
+            path: '/users',
+            element: <Users />,
+          },
+          {
+            path: '/users/:id',
+            element: <User />,
+          },
+          {
+            path: '/products',
+            element: <Products />,
+          },
+          {
+            path: '/products/:id',
+            element: <Product />,
+          },
+          {
+            path: '/orders',
+            element: <Orders />,
+          },
+          {
+            path: '/posts',
+            element: <Posts />,
+          },
+          {
+            path: '/notes',
+            element: <Notes />,
+          },
+          {
+            path: '/calendar',
+            element: <Calendar />,
+          },
+          {
+            path: '/charts',
+            element: <Charts />,
+          },
+          {
+            path: '/logs',
+            element: <Logs />,
+          },
+        ]
+      }],
 
-          path: '/',
-          element: <Profile />,
-        },
-        {
-          path: '/edit',
-          element: <EditProfile />,
-        },
-        {
-          path: '/users',
-          element: <Users />,
-        },
-        {
-          path: '/users/:id',
-          element: <User />,
-        },
-        {
-          path: '/products',
-          element: <Products />,
-        },
-        {
-          path: '/products/:id',
-          element: <Product />,
-        },
-        {
-          path: '/orders',
-          element: <Orders />,
-        },
-        {
-          path: '/posts',
-          element: <Posts />,
-        },
-        {
-          path: '/notes',
-          element: <Notes />,
-        },
-        {
-          path: '/calendar',
-          element: <Calendar />,
-        },
-        {
-          path: '/charts',
-          element: <Charts />,
-        },
-        {
-          path: '/logs',
-          element: <Logs />,
-        },
-      ],
       errorElement: <Error />,
     },
     {

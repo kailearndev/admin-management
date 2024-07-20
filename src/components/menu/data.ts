@@ -1,16 +1,8 @@
 // import toast from 'react-hot-toast';
 import {
-  HiOutlineHome,
-  HiOutlineUser,
-  HiOutlineUsers,
   HiOutlineCube,
-  HiOutlineClipboardDocumentList,
-  HiOutlineDocumentChartBar,
-  HiOutlinePencilSquare,
-  HiOutlineCalendarDays,
-  HiOutlinePresentationChartBar,
-  HiOutlineDocumentText,
-  HiOutlineArrowLeftOnRectangle,
+  HiOutlineUser,
+  HiOutlineUsers
 } from 'react-icons/hi2';
 // import { IoSettingsOutline } from 'react-icons/io5';
 
@@ -29,6 +21,8 @@ export const menu = [
         url: '/',
         icon: HiOutlineUser,
         label: 'About Me',
+
+
       },
       {
         isLink: true,
@@ -41,6 +35,7 @@ export const menu = [
         url: '/education',
         icon: HiOutlineCube,
         label: 'Education',
+
       },
     ],
     // },
