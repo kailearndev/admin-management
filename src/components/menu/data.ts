@@ -8,7 +8,7 @@ import {
 
 export const menu = [
   {
-    catalog: 'main',
+
     listItems: [
       // {
       //   isLink: true,

@@ -9,7 +9,7 @@ const Menu = () => {
         {menu.map((item, index) => (
           <MenuItem
             key={index}
-            catalog={item.catalog}
+
             listItems={item.listItems}
           />
         ))}

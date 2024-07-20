@@ -116,6 +116,7 @@ const Profile = () => {
                   </span>
                 </div>
                 <input
+                  readOnly
                   type="text"
                   placeholder="Type here"
                   value={formik.values.lastName}
@@ -185,7 +186,7 @@ const Profile = () => {
                     setUrlPreview(formik.values.urlHelloPicture),
                       openModal()
                   }}
-                  className="cursor-pointer h-20 max-w-xl rounded-lg shadow-xl dark:shadow-gray-800" src={formik.values.urlHelloPicture} alt="image description" />
+                  className="cursor-pointer h-20 max-w-xl aspect-square rounded-lg shadow-xl dark:shadow-gray-800" src={formik.values.urlHelloPicture} alt="image description" />
 
               </div>
               <div className="w-full grid sm:col-span-full xl:grid-cols-3 2xl:grid-cols-4 xl:items-start gap-1 xl:gap-0 ">
@@ -329,7 +330,7 @@ const Profile = () => {
                     setUrlPreview(formik.values.urlProfilePicture),
                       openModal()
                   }}
-                  className=" cursor-pointer h-20 max-w-xl rounded-lg shadow-xl dark:shadow-gray-800" src={formik.values.urlProfilePicture} alt="image description" />
+                  className=" cursor-pointer h-20 max-w-xl aspect-square  rounded-lg shadow-xl dark:shadow-gray-800" src={formik.values.urlProfilePicture} alt="image description" />
 
               </div>
               <div className="w-full grid xl:grid-cols-3 2xl:grid-cols-4 items-center gap-1 xl:gap-0">

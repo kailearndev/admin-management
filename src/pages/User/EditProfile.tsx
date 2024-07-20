@@ -10,14 +10,22 @@ import { updateUserValidate } from './validate';
 
 const EditProfile = () => {
   const navigate = useNavigate();
+
   const { id } = useParams()
   const fileInputRefTop = React.useRef<HTMLInputElement>(null);
   const fileInputRefProfile = React.useRef<HTMLInputElement>(null);
   const [selectedFile, setSelectedFile] = React.useState<File | null>(
     null
   );
+
   const [selectedFileProfile, setSelectedFileProfile] = React.useState<File | null>(
     null
+  );
+  const [loadingTopPicture, setLoadingTopPicture] = React.useState<boolean>(
+    false
+  );
+  const [loadingProfilePicture, setLoadingProfilePicture] = React.useState<boolean>(
+    false
   );
   const [previewTop, setPreviewTop] = React.useState<string | null>(null);
   const [previewProfile, setPreviewProfile] = React.useState<string | null>(null);
@@ -47,9 +55,9 @@ const EditProfile = () => {
   };
 
   const handleUploadfile = async () => {
-
+    setLoadingTopPicture(true)
     let res: any = await UserService.uploadFile(selectedFile as File)
-    console.log(res);
+
 
     if (res?.statusCode === 200) {
 
@@ -62,10 +70,11 @@ const EditProfile = () => {
       toast.error('Upload failed !!')
 
     }
+    setLoadingTopPicture(false)
 
   }
   const handleUploadfileProfile = async () => {
-
+    setLoadingProfilePicture(true)
     let res: any = await UserService.uploadFile(selectedFileProfile as File)
 
     if (res?.statusCode === 200) {
@@ -78,7 +87,7 @@ const EditProfile = () => {
       toast.error('Upload failed !!')
 
     }
-
+    setLoadingProfilePicture(false)
   }
 
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
@@ -302,9 +311,9 @@ const EditProfile = () => {
                 <textarea
 
                   onChange={formik.handleChange}
-                  name='instagramUrl'
+                  name='address'
                   className="textarea textarea-bordered w-full col-span-2 2xl:col-span-3"
-                  placeholder="instagramUrl"
+                  placeholder="Type here"
                   value={formik.values.address}
 
                 ></textarea>
@@ -333,13 +342,19 @@ const EditProfile = () => {
 
                   </div>
                   <div className='flex gap-3'>
-                    <div onClick={handleIconClickTop}><button className="btn btn-active btn-warning btn-xs sm:btn-sm md:btn-md xl:btn-md">Edit</button></div>
-                    <div onClick={handleUploadfile}><button
+                    <div onClick={handleIconClickTop}><button className="btn btn-active btn-warning btn-xs sm:btn-md">Edit</button></div>
+                    <div onClick={handleUploadfile}>
+                      <button
 
-                      className="btn btn-active  btn-success btn-xs sm:btn-sm md:btn-md xl:btn-md">Save</button></div>
+                        className="btn btn-active  btn-success btn-xs sm:btn-md">
+
+                        {loadingTopPicture ? <span className="loading loading-spinner"></span> : <>Save</>}
+                      </button>
+                    </div>
                   </div>
                 </div>
                 <input
+                  accept="image/*"
                   name='helloPicture'
                   type="file"
                   ref={fileInputRefTop}
@@ -511,11 +526,15 @@ const EditProfile = () => {
 
                   </div>
                   <div className='flex gap-3'>
-                    <div onClick={handleIconClickProfile}><button className="btn btn-active btn-warning btn-xs sm:btn-sm md:btn-md xl:btn-md">Edit</button></div>
-                    <div onClick={handleUploadfileProfile}><button className="btn btn-active  btn-success btn-xs sm:btn-sm md:btn-md xl:btn-md">Save</button></div>
+                    <div onClick={handleIconClickProfile}><button className="btn btn-active btn-warning btn-xs sm:btn-md">Edit</button></div>
+                    <div onClick={handleUploadfileProfile}><button className="btn btn-active  btn-success btn-xs sm:btn-md">
+
+                      {loadingProfilePicture ? <span className="loading loading-spinner"></span> : <>Save</>}
+                    </button></div>
                   </div>
                 </div>
                 <input
+                  accept="image/*"
                   name='profilePicture'
                   type="file"
                   ref={fileInputRefProfile}
@@ -530,6 +549,7 @@ const EditProfile = () => {
                   <span className="whitespace-nowrap">Interest</span>
                 </div>
                 <div className="badge h-[30px] badge-primary">Football</div>
+
 
               </div>
             </div>

@@ -4,7 +4,7 @@ import { IconType } from 'react-icons';
 
 interface MenuItemProps {
   onClick?: () => void;
-  catalog: string;
+  catalog?: string;
   listItems: Array<{
     isLink: boolean;
     url?: string;

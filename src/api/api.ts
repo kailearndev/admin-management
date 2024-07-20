@@ -30,9 +30,13 @@ http.interceptors.response.use(
         return response.data
     },
     (reject) => {
-        if (reject?.response?.status === 401 || reject?.response?.status === 403 || reject?.response?.status === 503)
-            localStorage.removeItem('token')
-        window.location.href = '/login'
+        if (reject?.response?.status === 401 || reject?.response?.status === 403) {
+            if (reject?.response?.status === 401 || reject?.response?.status === 403)
+                localStorage.removeItem('token')
+            window.location.href = '/login'
+
+
+        }
 
 
 

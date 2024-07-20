@@ -12,7 +12,7 @@ import Menu from './components/menu/Menu';
 import Login from './pages/Auth/Login';
 import Calendar from './pages/Calendar';
 import Error from './pages/Error';
-import Orders from './pages/Orders';
+import Notes from './pages/Notes';
 import ProtectPage from './pages/ProtectLayout';
 import EditProfile from './pages/User/EditProfile';
 import Profile from './pages/User/Profile';
@@ -71,12 +71,9 @@ function App() {
           // },
           {
             path: '/activities',
-            element: <Orders />,
+            element: <Notes />,
           },
-          {
-            path: '/products/:id',
-            element: <Orders />,
-          },
+
           {
             path: '/education',
             element: <Calendar />,
