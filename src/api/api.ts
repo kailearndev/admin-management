@@ -1,4 +1,5 @@
-import axios from 'axios'
+import axios, { AxiosError, AxiosResponse } from 'axios'
+import toast from 'react-hot-toast'
 
 
 const http = axios.create({
@@ -26,20 +27,25 @@ http.interceptors.request.use(
 )
 
 http.interceptors.response.use(
-    (response: any) => {
-        return response.data
+    (response: AxiosResponse) => {
+
+        return response.data;
+
     },
-    (reject) => {
-        if (reject?.response?.status === 403 || reject?.response?.status === 401) {
-
-            localStorage.removeItem('token')
-            window.location.href = '/login'
-
+    (error: AxiosError): Promise<AxiosError> => {
+        const statusCode = error.request?.status;
+        if (statusCode === 403 || statusCode === 401) {
+            toast.error('Login expired');
+            setTimeout(() => {
+                localStorage.removeItem('token');
+                location.href = '/login';
+            }, 1000);
         }
 
 
 
-        return Promise.reject(reject)
+
+        return Promise.reject(error)
     }
 )
 
