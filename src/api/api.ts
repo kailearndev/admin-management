@@ -1,5 +1,4 @@
 import axios from 'axios'
-import toast from 'react-hot-toast'
 
 
 const http = axios.create({
@@ -20,7 +19,8 @@ http.interceptors.request.use(
         return config
     },
     function (error) {
-        toast('ss')
+
+
         return Promise.reject(error?.message)
     }
 )
@@ -39,7 +39,7 @@ http.interceptors.response.use(
 
 
 
-        return Promise.reject
+        return Promise.reject(reject)
     }
 )
 
