@@ -1,32 +1,20 @@
 import React from 'react';
 import { DiReact } from 'react-icons/di';
 import { HiBars3CenterLeft } from 'react-icons/hi2';
-import { RxEnterFullScreen, RxExitFullScreen } from 'react-icons/rx';
 import { Link, useNavigate } from 'react-router-dom';
 import ChangeThemes from './ChangesThemes';
 import MenuItem from './menu/MenuItem';
 import { menu } from './menu/data';
 
 const Navbar = () => {
-  const [isFullScreen, setIsFullScreen] = React.useState(true);
-  const element = document.getElementById('root');
 
   const [isDrawerOpen, setDrawerOpen] = React.useState(false);
   const toggleDrawer = () => setDrawerOpen(!isDrawerOpen);
 
-  const toggleFullScreen = () => {
-    setIsFullScreen((prev) => !prev);
-  };
 
   const navigate = useNavigate();
 
-  React.useEffect(() => {
-    if (isFullScreen) {
-      document.exitFullscreen();
-    } else {
-      element?.requestFullscreen({ navigationUI: 'auto' });
-    }
-  }, [element, isFullScreen]);
+
 
   return (
     // navbar screen
@@ -92,17 +80,7 @@ const Navbar = () => {
         {/* search */}
 
 
-        {/* fullscreen */}
-        <button
-          onClick={toggleFullScreen}
-          className="hidden xl:inline-flex btn btn-circle btn-ghost"
-        >
-          {isFullScreen ? (
-            <RxEnterFullScreen className="xl:text-xl 2xl:text-2xl 3xl:text-3xl" />
-          ) : (
-            <RxExitFullScreen className="xl:text-xl 2xl:text-2xl 3xl:text-3xl" />
-          )}
-        </button>
+
 
         {/* notification */}
 
