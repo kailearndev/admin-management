@@ -34,9 +34,9 @@ http.interceptors.response.use(
     },
     (error: AxiosError): Promise<AxiosError> => {
         const statusCode = error.request?.status;
-        console.log(statusCode);
 
-        if (statusCode === 403 || statusCode === 401) {
+
+        if (statusCode === 403 || statusCode === 401 || statusCode === 0) {
             toast.error('Login expired');
             setTimeout(() => {
                 localStorage.removeItem('token');
