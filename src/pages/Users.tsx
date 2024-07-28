@@ -5,6 +5,7 @@ import { fetchUsers } from '../api/ApiCollection';
 import { useQuery } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
 import AddData from '../components/AddData';
+import dayjs from 'dayjs';
 
 const Users = () => {
   const [isOpen, setIsOpen] = React.useState(false);
@@ -13,11 +14,35 @@ const Users = () => {
     queryFn: fetchUsers,
   });
 
+
   const columns: GridColDef[] = [
     { field: 'id', headerName: 'ID', width: 90 },
     {
-      field: 'firstName',
+      field: 'title',
       headerName: 'Name',
+      minWidth: 220,
+      flex: 1,
+      // renderCell: (params) => {
+      //   return (
+      //     <div className="flex gap-3 items-center">
+      //       <div className="avatar">
+      //         <div className="w-6 xl:w-9 rounded-full">
+      //           <img
+      //             src={params.row.img || '/Portrait_Placeholder.png'}
+      //             alt="user-picture"
+      //           />
+      //         </div>
+      //       </div>
+      //       <span className="mb-0 pb-0 leading-none">
+      //         {params.row.firstName} {params.row.lastName}
+      //       </span>
+      //     </div>
+      //   );
+      // },
+    },
+    {
+      field: 'imageArticleUrl',
+      headerName: 'Image',
       minWidth: 220,
       flex: 1,
       renderCell: (params) => {
@@ -26,7 +51,7 @@ const Users = () => {
             <div className="avatar">
               <div className="w-6 xl:w-9 rounded-full">
                 <img
-                  src={params.row.img || '/Portrait_Placeholder.png'}
+                  src={params.value || '/Portrait_Placeholder.png'}
                   alt="user-picture"
                 />
               </div>
@@ -39,25 +64,19 @@ const Users = () => {
       },
     },
     {
-      field: 'email',
+      field: 'description',
       type: 'string',
-      headerName: 'Email',
+      headerName: 'Description',
       minWidth: 200,
       flex: 1,
     },
+
     {
-      field: 'phone',
-      type: 'string',
-      headerName: 'Phone',
-      minWidth: 120,
-      flex: 1,
-    },
-    {
-      field: 'createdAt',
+      field: 'createdDate',
       headerName: 'Created At',
       minWidth: 100,
       type: 'string',
-      flex: 1,
+      renderCell: (param) => <>{dayjs(param.value).format('YYYY.MM.DD')}</>
     },
     // {
     //   field: 'fullName',
@@ -70,8 +89,8 @@ const Users = () => {
     //     `${params.row.firstName || ''} ${params.row.lastName || ''}`,
     // },
     {
-      field: 'verified',
-      headerName: 'Verified',
+      field: 'isPublish',
+      headerName: 'Publish',
       width: 80,
       type: 'boolean',
       flex: 1,
@@ -110,15 +129,15 @@ const Users = () => {
           </div>
           <button
             onClick={() => setIsOpen(true)}
-            className={`btn ${
-              isLoading ? 'btn-disabled' : 'btn-primary'
-            }`}
+            className={`btn ${isLoading ? 'btn-disabled' : 'btn-primary'
+              }`}
           >
             Add New User +
           </button>
         </div>
         {isLoading ? (
           <DataTable
+
             slug="users"
             columns={columns}
             rows={[]}

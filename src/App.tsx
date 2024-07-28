@@ -16,6 +16,10 @@ import Notes from './pages/Notes';
 import ProtectPage from './pages/ProtectLayout';
 import EditProfile from './pages/User/EditProfile';
 import Profile from './pages/User/Profile';
+import Posts from './pages/Posts';
+import Logs from './pages/Logs';
+import Product from './pages/Product';
+import Users from './pages/Users';
 
 function App() {
 
@@ -71,7 +75,7 @@ function App() {
           // },
           {
             path: '/activities',
-            element: <Notes />,
+            element: <Users />,
           },
 
           {

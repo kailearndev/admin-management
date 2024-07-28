@@ -1,9 +1,10 @@
 import axios from 'axios';
+import http from './api';
 
 // GET TOP DEALS
 export const fetchTopDeals = async () => {
-  const response = await axios
-    .get('https://react-admin-ui-v1-api.vercel.app/topdeals')
+  const response = await http
+    .get('admin/posts')
     .then((res) => {
       console.log('axios get:', res.data);
       return res.data;
@@ -148,11 +149,11 @@ export const fetchTotalProfit = async () => {
 
 // GET ALL USERS
 export const fetchUsers = async () => {
-  const response = await axios
-    .get('https://react-admin-ui-v1-api.vercel.app/users')
+  const response = await http
+    .get('admin/posts')
     .then((res) => {
       console.log('axios get:', res.data);
-      return res.data;
+      return res.data.items;
     })
     .catch((err) => {
       console.log(err);

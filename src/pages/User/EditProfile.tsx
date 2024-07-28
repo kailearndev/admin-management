@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
 import { useFormik } from 'formik';
-import React, { ChangeEvent, useEffect, useState } from 'react';
+import React, { ChangeEvent, useEffect, useId, useState } from 'react';
 import toast from 'react-hot-toast';
 import { useNavigate, useParams } from 'react-router-dom';
 import { UserService } from '../../api/user-service';
@@ -8,9 +8,22 @@ import Modal from '../../components/Modal/Modal';
 import { UserType, userState } from './type';
 import { updateUserValidate } from './validate';
 
+
+
+type TypeSkills = {
+  name: string,
+  star: number,
+  order: number
+}
 const EditProfile = () => {
   const navigate = useNavigate();
+  const [skill, setNewSkill] = useState<TypeSkills>({
+    name: '',
+    order: 0,
+    star: 1
+  })
 
+  const [skills, setNewSkills] = useState<TypeSkills[]>([])
   const { id } = useParams()
   const fileInputRefTop = React.useRef<HTMLInputElement>(null);
   const fileInputRefProfile = React.useRef<HTMLInputElement>(null);
@@ -104,6 +117,7 @@ const EditProfile = () => {
 
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [urlPreview, setUrlPreview] = useState<string | undefined>('');
+  const [nextOrder, setNextOrder] = useState<number>(1);
 
   const openModal = (): void => setIsModalOpen(true);
   const closeModal = (): void => setIsModalOpen(false);
@@ -115,8 +129,12 @@ const EditProfile = () => {
   const handleFecthData = async () => {
     let res = await UserService.getUser()
     formik.setValues(res)
+    setNewSkills(res?.skills)
+
 
   }
+  console.log(skills);
+
   const handleUpdate = async (values: UserType) => {
     let res: any = await UserService.updateUser(id, {
       address: values.address,
@@ -128,7 +146,7 @@ const EditProfile = () => {
       gender: values.gender,
       facebookUrl: values.facebookUrl ?? "",
       firstName: values.firstName,
-      skills: [],
+      skills: skills,
       helloPicture: values.helloPicture ?? "",
       id: values.id,
       instagramUrl: values.instagramUrl ?? '',
@@ -153,6 +171,32 @@ const EditProfile = () => {
 
     }
   }
+  const addNewSkill = (newSkill: TypeSkills) => {
+    newSkill.order = nextOrder; // Assign unique ID
+
+
+    setNewSkills((prevSkills) => [...prevSkills, newSkill]);
+    setNextOrder(nextOrder + 1)
+
+  };
+
+  const handleAddSkills = () => {
+    const newSkill = {
+      ...skill,
+
+    };
+    addNewSkill(newSkill);
+    setNewSkill({
+      name: '',
+      order: 0,
+      star: 1
+    });
+
+  }
+  const handleDeleteSkill = (order: number) => {
+    setNextOrder(nextOrder - 1)
+    setNewSkills(skills.filter((item) => item.order !== order));
+  };
   const formik = useFormik({
     initialValues: userState,
     onSubmit: handleUpdate,
@@ -375,49 +419,64 @@ const EditProfile = () => {
 
 
               </div>
-              <div className="w-full grid sm:col-span-full xl:grid-cols-3 2xl:grid-cols-4 xl:items-start gap-1 xl:gap-0 ">
+              <div className="w-full grid sm:col-span-full xl:grid-cols-2 2xl:grid-cols-4 xl:items-start gap-1 xl:gap-0 ">
                 <div className="w-full whitespace-nowrap xl:mt-3">
                   <span className="whitespace-nowrap">Skills</span>
                 </div>
+                <div className='flex gap-2 max-sm:flex-col ' >
+                  <input
+                    value={skill.name}
+                    onChange={(e) => setNewSkill({ ...skill, name: (e.target.value) })}
+                    type="text"
+                    placeholder="Type here"
+                    className="input input-bordered  " />
+                  <select className="select select-bordered "
+                    value={skill.star}
+                    onChange={(e) => setNewSkill({
+                      ...skill,
 
-                {
-                  // formik.values?.skills.length ?
-                  //   formik.values?.skills.map((item) =>
-                  //     <div className='col-span-full'>
-                  //       <div className="w-full whitespace-nowrap " key={item.order}>
-                  //         <span className="whitespace-nowrap font-medium">{item.name}</span>
-                  //       </div>
-                  //       <div className="rating">
-                  //         <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" />
-                  //         <input
-                  //           type="radio"
-                  //           name="rating-2"
-                  //           className="mask mask-star-2 bg-orange-400"
-                  //           defaultChecked />
-                  //         <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" />
-                  //         <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" />
-                  //         <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" />
-                  //       </div>
-                  //     </div>) :
-                  <div className='flex  justify-center items-center gap-2 mt-2'>
-                    <div className="w-full whitespace-nowrap " >
-                      <span className="whitespace-nowrap font-medium">Any</span>
-                    </div>
-                    <div className="rating">
-                      <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" />
-                      <input
-                        type="radio"
-                        name="rating-2"
-                        className="mask mask-star-2 bg-orange-400"
-                        defaultChecked />
-                      <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" />
-                      <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" />
-                      <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" />
-                    </div>
-                  </div>}
 
+                      star: Number(e.target.value)
+                    })}
+                  >
+                    <option disabled selected>Point</option>
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+
+                  </select>
+                  <button disabled={!skill.name || skill.star === 0} className="btn" onClick={handleAddSkills}>Add</button>
+
+                </div>
+
+                <div className='grid  xl:col-span-4 xl:grid-cols-5 gap-4 py-5 '>
+                  {skills.map((item) => (
+                    <div key={item.order} className="w-full">
+                      <button className="btn ">
+                        {item.name}
+                        <div className="badge badge-warning">{item.star}</div>
+                        <svg
+                          onClick={() => handleDeleteSkill(item.order)}
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          className="inline-block h-4 w-4 stroke-current">
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth="2"
+                            d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                      </button>
+                    </div>
+                  ))}
+                </div>
               </div>
+
             </div>
+
             {/* column 2 */}
             <div className="w-full flex flex-col sm:grid sm:grid-cols-2 xl:flex xl:flex-col gap-3 xl:gap-5">
               {/* row 1 */}
@@ -569,12 +628,12 @@ const EditProfile = () => {
             {/* column 3 */}
 
           </div>
-        </div>
+        </div >
         <Modal isOpen={isModalOpen} onClose={closeModal} >
           <img src={urlPreview} />
         </Modal>
-      </div>
-    </div>
+      </div >
+    </div >
   );
 };
 

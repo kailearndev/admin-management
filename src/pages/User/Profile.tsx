@@ -194,40 +194,17 @@ const Profile = () => {
                   <span className="whitespace-nowrap">Skills</span>
                 </div>
 
-                {/* {
-                  formik.values?.skills.length ?
-                    formik.values?.skills.map((item) =>
-                      <div className='flex  p-[1rem] rounded-md border-[1px] gap-2 '>
-                        <div className="w-full whitespace-nowrap " key={item.order}>
-                          <span className="whitespace-nowrap font-medium">{item.name}</span>
-                        </div>
-                        <div className="rating">
-                          <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" />
-                          <input
-                            type="radio"
-                            name="rating-2"
-                            className="mask mask-star-2 bg-orange-400"
-                            defaultChecked />
-                          <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" />
-                          <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" />
-                          <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" />
-                        </div>
-                      </div>) : */}
-                <div className='flex mt-2 '>
-                  <div className="w-full whitespace-nowrap " >
-                    <span className="whitespace-nowrap font-medium">Any</span>
-                  </div>
-                  <div className="rating">
-                    <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" />
-                    <input
-                      type="radio"
-                      name="rating-2"
-                      className="mask mask-star-2 bg-orange-400"
-                      defaultChecked />
-                    <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" />
-                    <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" />
-                    <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" />
-                  </div>
+
+                <div className='grid  xl:col-span-4 xl:grid-cols-5 gap-4 py-5 '>
+                  {formik.values.skills.map((item) => (
+                    <div key={item.order} className="w-full">
+                      <button className="btn ">
+                        {item.name}
+                        <div className="badge badge-warning">{item.star}</div>
+
+                      </button>
+                    </div>
+                  ))}
                 </div>
 
               </div>
