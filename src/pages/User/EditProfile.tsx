@@ -15,6 +15,10 @@ type TypeSkills = {
   star: number,
   order: number
 }
+type TypeInterest = {
+  name: string,
+  order: number
+}
 const EditProfile = () => {
   const navigate = useNavigate();
   const [skill, setNewSkill] = useState<TypeSkills>({
@@ -22,8 +26,15 @@ const EditProfile = () => {
     order: 0,
     star: 1
   })
+  const [interest, setNewInterest] = useState<TypeInterest>({
+    name: '',
+    order: 0,
+
+  })
 
   const [skills, setNewSkills] = useState<TypeSkills[]>([])
+  const [interests, setNewInterests] = useState<TypeInterest[]>([])
+
   const { id } = useParams()
   const fileInputRefTop = React.useRef<HTMLInputElement>(null);
   const fileInputRefProfile = React.useRef<HTMLInputElement>(null);
@@ -130,10 +141,9 @@ const EditProfile = () => {
     let res = await UserService.getUser()
     formik.setValues(res)
     setNewSkills(res?.skills)
-
+    setNewInterests(res?.interests)
 
   }
-  console.log(skills);
 
   const handleUpdate = async (values: UserType) => {
     let res: any = await UserService.updateUser(id, {
@@ -150,7 +160,7 @@ const EditProfile = () => {
       helloPicture: values.helloPicture ?? "",
       id: values.id,
       instagramUrl: values.instagramUrl ?? '',
-      interests: [],
+      interests: interests,
       lastName: values.lastName,
       nationality: values.nationality,
       phone: values.phone,
@@ -193,17 +203,47 @@ const EditProfile = () => {
     });
 
   }
+
   const handleDeleteSkill = (order: number) => {
     setNextOrder(nextOrder - 1)
     setNewSkills(skills.filter((item) => item.order !== order));
   };
+
+
+
+  const addNewInterest = (newInterest: TypeInterest) => {
+    newInterest.order = nextOrder; // Assign unique ID
+
+
+    setNewInterests((prevSkills) => [...prevSkills, newInterest]);
+    setNextOrder(nextOrder + 1)
+
+  };
+
+  const handleAddInterest = () => {
+    const newInterest = {
+      ...interest,
+
+    };
+    addNewInterest(newInterest);
+    setNewInterest({
+      name: '',
+      order: 0,
+
+    });
+
+  }
+
+  const handleDeleteInterest = (order: number) => {
+    setNextOrder(nextOrder - 1)
+    setNewInterests(interests.filter((item) => item.order !== order));
+  };
+
   const formik = useFormik({
     initialValues: userState,
     onSubmit: handleUpdate,
     validationSchema: updateUserValidate
   })
-
-
 
   return (
     // screen
@@ -616,13 +656,44 @@ const EditProfile = () => {
 
 
               </div>
-              <div className="w-full grid xl:grid-cols-3 2xl:grid-cols-4 items-center gap-1 xl:gap-0">
-                <div className="w-full whitespace-nowrap">
+              <div className="w-full grid sm:col-span-full xl:grid-cols-2 2xl:grid-cols-4 xl:items-start gap-1 xl:gap-0 ">
+                <div className="w-full whitespace-nowrap xl:mt-3">
                   <span className="whitespace-nowrap">Interest</span>
                 </div>
-                <div className="badge h-[30px] badge-primary">Football</div>
+                <div className='flex gap-2 max-sm:flex-col ' >
+                  <input
+                    value={interest.name}
+                    onChange={(e) => setNewInterest({ ...skill, name: (e.target.value) })}
+                    type="text"
+                    placeholder="Type here"
+                    className="input input-bordered  " />
 
+                  <button disabled={!interest.name} className="btn" onClick={handleAddInterest}>Add</button>
 
+                </div>
+
+                <div className='grid  xl:col-span-4 xl:grid-cols-5 gap-4 py-5 '>
+                  {interests.map((item) => (
+                    <div key={item.order} className="w-full">
+                      <button className="btn btn-warning">
+                        {item.name}
+
+                        <svg
+                          onClick={() => handleDeleteInterest(item.order)}
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          className="inline-block h-4 w-4 stroke-current">
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth="2"
+                            d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                      </button>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
             {/* column 3 */}

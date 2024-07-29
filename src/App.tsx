@@ -15,7 +15,8 @@ import Error from './pages/Error';
 import ProtectPage from './pages/ProtectLayout';
 import EditProfile from './pages/User/EditProfile';
 import Profile from './pages/User/Profile';
-import Users from './pages/Users';
+import Activities from './pages/Activities/Activities';
+
 
 function App() {
 
@@ -65,13 +66,10 @@ function App() {
           //   path: '/users',
           //   element: <Users />,
           // },
-          // {
-          //   path: '/users/:id',
-          //   element: <User />,
-          // },
+
           {
             path: '/activities',
-            element: <Users />,
+            element: <Activities />,
           },
 
           {

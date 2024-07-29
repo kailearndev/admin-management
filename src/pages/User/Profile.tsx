@@ -310,12 +310,23 @@ const Profile = () => {
                   className=" cursor-pointer  w-40  h-40  aspect-square  rounded-lg shadow-xl dark:shadow-gray-800" src={formik.values?.urlProfilePicture} alt="image description" />
 
               </div>
-              <div className="w-full grid xl:grid-cols-3 2xl:grid-cols-4 items-center gap-1 xl:gap-0">
-                <div className="w-full whitespace-nowrap">
+              <div className="w-full grid sm:col-span-full xl:grid-cols-2 2xl:grid-cols-4 xl:items-start gap-1 xl:gap-0 ">
+                <div className="w-full whitespace-nowrap xl:mt-3">
                   <span className="whitespace-nowrap">Interest</span>
                 </div>
-                <div className="badge h-[30px] badge-primary">Football</div>
 
+
+                <div className='grid  xl:col-span-4 xl:grid-cols-5 gap-4 py-5 '>
+                  {formik.values.interests?.map((item) => (
+                    <div key={item.order} className="w-full">
+                      <button className="btn btn-warning">
+                        {item.name}
+
+
+                      </button>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
             {/* column 3 */}
