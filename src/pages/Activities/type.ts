@@ -10,7 +10,8 @@ export interface ActivitiesValue {
     videoUrl?: string;
     imageArticle: string;
     imageArticleUrl?: string;
-    imageHeaders: string[];
+    imageHeaders: ImageHeader[];
+    imageHeaderUpdate?: string[]
     createdDate?: string; // or Date if you want to convert it to a Date object
     updatedDate?: string; // or Date if you want to convert it to a Date object
     ownerId?: string;
@@ -21,9 +22,10 @@ export const ActivitiesState: ActivitiesValue = {
     content: "",
     description: "",
     isPublish: true,
-    video: "",
+    
     imageArticle: "",
     imageHeaders: [],
+    
 
 
 }
@@ -39,10 +41,11 @@ export interface ActivitiesValueUpdate {
     videoUrl?: string;
     imageArticle: string;
     imageArticleUrl?: string;
-    imageHeaders: any[];
+    imageHeaders: ImageHeader[];
     createdDate?: string; // or Date if you want to convert it to a Date object
     updatedDate?: string; // or Date if you want to convert it to a Date object
     ownerId?: string;
+    imageHeaderUpdate: string[]
 }
 export const ActivitiesUpdate: ActivitiesValueUpdate = {
 
@@ -53,6 +56,13 @@ export const ActivitiesUpdate: ActivitiesValueUpdate = {
     video: '',
     imageArticle: "",
     imageHeaders: [],
+    imageHeaderUpdate: []
+   
 
-
+}
+type ImageHeader = {
+    fileId: string
+    url: string
+    fileName: string
+    contentType: string
 }

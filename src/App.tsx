@@ -1,4 +1,5 @@
 // import React from 'react';
+import { lazy } from 'react';
 import {
   Outlet,
   RouterProvider,
@@ -9,14 +10,17 @@ import Footer from './components/Footer';
 import Navbar from './components/Navbar';
 import ToasterProvider from './components/ToasterProvider';
 import Menu from './components/menu/Menu';
+import Activities from './pages/Activities/Activities';
 import Login from './pages/Auth/Login';
 import Calendar from './pages/Calendar';
 import Error from './pages/Error';
 import ProtectPage from './pages/ProtectLayout';
 import EditProfile from './pages/User/EditProfile';
 import Profile from './pages/User/Profile';
-import Activities from './pages/Activities/Activities';
 
+import CreateActivities from './pages/Activities/Create'
+import DeatailActivities from './pages/Activities/Detail'
+import { LoadingProvider } from './components/LoadingContext';
 
 function App() {
 
@@ -27,6 +31,7 @@ function App() {
         id="rootContainer"
         className="w-full p-0 m-0 overflow-visible min-h-screen flex flex-col justify-between"
       >
+       
         <ToasterProvider />
         <ScrollRestoration />
         <div>
@@ -68,8 +73,19 @@ function App() {
           // },
 
           {
+           
             path: '/activities',
             element: <Activities />,
+            children: [
+              {
+                path:'create',
+                element: <CreateActivities/>
+              },
+              {
+                path:':id',
+                element: <DeatailActivities/>
+              },
+            ],
           },
 
           {

@@ -1,21 +1,50 @@
 import { useQuery } from '@tanstack/react-query';
 import dayjs from 'dayjs';
-import React, { useState } from 'react';
-import { Button } from 'react-daisyui';
+import React from 'react';
+import { Outlet, useNavigate, useOutlet } from 'react-router-dom';
+import { ActivitiesService } from '../../api/activities';
+import Pagination from '../../components/Paginate';
 import toast from 'react-hot-toast';
-import { fetchUsers } from '../../api/ApiCollection';
-import ModalCreate from './ModalCreate';
-import ModalDetail from './ModalDetail';
+import { useLoading } from '../../components/LoadingContext';
 
 const Activities = () => {
+  const outlet = useOutlet()
+  return outlet? <Outlet/> : <ActivitiesPage/>
+}
 
-  const { isLoading, isError, isSuccess, data } = useQuery({
-    queryKey: ['activities'],
-    queryFn: fetchUsers,
-  });
+const ActivitiesPage = () => {
+  const [filter, setFilter] = React.useState<{Page: number, PageSize: number, Search: string | {}}>({
+    Page: 1,
+    PageSize: 10,
+    Search: {}
+  })
+  
+  const { setLoading } = useLoading();
 
+  
+  const fetchData = async ({
+    queryKey
+  }: {
+    queryKey: [string, {Page: number, PageSize: number, Search: string | {}}]
+  }) => {
+    const [, filter] = queryKey
+    setLoading(true)
+    const result = await ActivitiesService.fetchActivities(filter)
+    setLoading(false)
+      return result
+   
+   
+  }
+  const { data, refetch, isFetching, isPlaceholderData, isError,isSuccess } = useQuery({
+    queryKey: ['member-account-table', filter],
+    queryFn: fetchData,
+    refetchOnMount: true,
+    refetchOnWindowFocus: true
+    
+  })
+  
   React.useEffect(() => {
-    if (isLoading) {
+    if (isFetching) {
       toast.loading('Loading...', { id: 'promiseUsers' });
     }
     if (isError) {
@@ -28,15 +57,21 @@ const Activities = () => {
         id: 'promiseUsers',
       });
     }
-  }, [isError, isLoading, isSuccess]);
+  }, [isError, isFetching, isSuccess]);
 
-  const [idActivities, setIdActivities] = useState<string>('')
-  const [modalCreate, setModalCreate] = useState<boolean>(false)
-  const [modalDetail, setModalDetail] = useState<boolean>(false)
-
+  const navigate = useNavigate()
+  const handlePageChange = (page: number) => {
+    if (page !== filter.Page) {
+      setFilter({ ...filter, Page: page })
+    }
+  }
+  console.log(data);
+  
   return (
-    <div className="overflow-x-auto ">
-      <Button onClick={() => setModalCreate(true)} className='absolute right-5 z-20' size='sm'>Add New</Button>
+    <><div className="overflow-x-auto ">
+    <div className='flex justify-end'>
+    <button className="btn" onClick={() => navigate(`create`)}>Add</button>
+    </div>
       <table className="table table-pin-rows  table-pin-cols ">
         {/* head */}
         <thead>
@@ -52,49 +87,50 @@ const Activities = () => {
         </thead>
         <tbody>
           {/* row 1 */}
-          {data?.map?.((item: any) =>
-            <><tr key={item?.id}>
+          {data?.items?.map?.((item: any) => <><tr key={item?.id}>
 
-              <td>
-                <div className="flex items-center gap-3">
-                  <div className="avatar">
-                    <div className="mask mask-squircle h-12 w-12">
-                      <img
-                        src={item?.imageArticleUrl}
-                        alt="Avatar Tailwind CSS Component" />
-                    </div>
-                  </div>
-                  <div>
-                    <div className="font-bold">{item?.title}</div>
+            <td>
+              <div className="flex items-center gap-3">
+                <div className="avatar">
+                  <div className="mask mask-squircle h-12 w-12">
+                    <img
+                      src={item?.imageArticleUrl}
+                      alt="Avatar Tailwind CSS Component" />
                   </div>
                 </div>
-              </td>
-              <td>
-                {item?.description}
+                <div>
+                  <div className="font-bold">{item?.title}</div>
+                </div>
+              </div>
+            </td>
+            <td>
+              {item?.description}
 
-              </td>
-              <td>{dayjs(item?.createdDate).format('YYYY.MM.DD')}</td>
-              <th>
-                <button className="btn btn-ghost btn-xs" onClick={() => {
-                  setIdActivities(item.id);
-                  setModalDetail(true);
-                }}>Edit</button>
+            </td>
+            <td>{dayjs(item?.createdDate).format('YYYY.MM.DD')}</td>
+            <th>
+              <button className="btn btn-ghost btn-xs" onClick={() => navigate(`${item.id}`)}>Edit</button>
 
-              </th>
-            </tr>
-            </>
+             
+
+            </th>
+          </tr>
+          </>
           )}
 
 
         </tbody>
         {/* foot */}
 
-      </table>
-      <ModalDetail isOpen={modalDetail} onClose={() => setModalDetail(false)} id={idActivities} />
-      <ModalCreate isOpen={modalCreate} onClose={() => setModalCreate(false)} />
+      </table> 
+     <div className='flex justify-end items-end'>
+     {data?.totalItems > 0 &&<Pagination pageNumber={data?.pageNumber}  totalItems={data?.totalItems} onPageChange={handlePageChange} />}
+     </div>
 
+     
 
     </div>
+   </>
   );
 };
 

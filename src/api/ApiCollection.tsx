@@ -16,20 +16,7 @@ export const fetchTopDeals = async () => {
   return response;
 };
 
-export const fetchUsers = async () => {
-  const response = await http
-    .get('admin/posts')
-    .then((res) => {
-      console.log('axios get:', res.data);
-      return res.data.items;
-    })
-    .catch((err) => {
-      console.log(err);
-      throw err;
-    });
 
-  return response;
-};
 export const fetchActivitiesDetail = async (id: string) => {
   const response = await http
     .get(`admin/posts/${id}`)

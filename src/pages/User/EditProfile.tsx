@@ -449,7 +449,7 @@ const EditProfile = () => {
                   </div>
                 </div>
                 <input
-                  accept="image/*"
+                 accept="image/png,image/jpeg" 
                   name='helloPicture'
                   type="file"
                   ref={fileInputRefTop}
@@ -459,7 +459,7 @@ const EditProfile = () => {
 
 
               </div>
-              <div className="w-full grid sm:col-span-full xl:grid-cols-2 2xl:grid-cols-4 xl:items-start gap-1 xl:gap-0 ">
+              <div className="w-full grid sm:col-span-full xl:grid-cols-3 2xl:grid-cols-4 xl:items-start gap-1 xl:gap-0">
                 <div className="w-full whitespace-nowrap xl:mt-3">
                   <span className="whitespace-nowrap">Skills</span>
                 </div>
@@ -491,10 +491,13 @@ const EditProfile = () => {
 
                 </div>
 
-                <div className='grid  xl:col-span-4 xl:grid-cols-5 gap-4 py-5 '>
-                  {skills.map((item) => (
+              </div>
+              <div className="w-full grid sm:grid-cols-1 lg:grid-cols-2 xl:items-start gap-2">
+              
+
+                      {skills.map((item) => (
                     <div key={item.order} className="w-full">
-                      <button className="btn ">
+                      <button className="btn btn-wide ">
                         {item.name}
                         <div className="badge badge-warning">{item.star}</div>
                         <svg
@@ -512,7 +515,6 @@ const EditProfile = () => {
                       </button>
                     </div>
                   ))}
-                </div>
               </div>
 
             </div>
@@ -646,7 +648,7 @@ const EditProfile = () => {
                   </div>
                 </div>
                 <input
-                  accept="image/*"
+                 accept="image/png,image/jpeg"
                   name='profilePicture'
                   type="file"
                   ref={fileInputRefProfile}
@@ -656,26 +658,27 @@ const EditProfile = () => {
 
 
               </div>
-              <div className="w-full grid sm:col-span-full xl:grid-cols-2 2xl:grid-cols-4 xl:items-start gap-1 xl:gap-0 ">
-                <div className="w-full whitespace-nowrap xl:mt-3">
+                <div className="w-full grid xl:grid-cols-3 2xl:grid-cols-4 items-center gap-1 xl:gap-0">
+                <div className="w-full whitespace-nowrap">
                   <span className="whitespace-nowrap">Interest</span>
                 </div>
-                <div className='flex gap-2 max-sm:flex-col ' >
+                <div className='flex gap-2 ' >
                   <input
                     value={interest.name}
                     onChange={(e) => setNewInterest({ ...skill, name: (e.target.value) })}
                     type="text"
                     placeholder="Type here"
-                    className="input input-bordered  " />
+                    className="input input-bordered " />
 
                   <button disabled={!interest.name} className="btn" onClick={handleAddInterest}>Add</button>
 
                 </div>
+              </div>
 
-                <div className='grid  xl:col-span-4 xl:grid-cols-5 gap-4 py-5 '>
-                  {interests.map((item) => (
+              <div className="grid sm:grid-cols-1 lg:grid-cols-2 gap-2">
+              {interests.map((item) => (
                     <div key={item.order} className="w-full">
-                      <button className="btn btn-warning">
+                      <button className="btn btn-neutral btn-wide">
                         {item.name}
 
                         <svg
@@ -693,7 +696,6 @@ const EditProfile = () => {
                       </button>
                     </div>
                   ))}
-                </div>
               </div>
             </div>
             {/* column 3 */}
