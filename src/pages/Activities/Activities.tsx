@@ -1,11 +1,11 @@
 import { useQuery } from '@tanstack/react-query';
 import dayjs from 'dayjs';
 import React from 'react';
+import toast from 'react-hot-toast';
 import { Outlet, useNavigate, useOutlet } from 'react-router-dom';
 import { ActivitiesService } from '../../api/activities';
-import Pagination from '../../components/Paginate';
-import toast from 'react-hot-toast';
 import { useLoading } from '../../components/LoadingContext';
+import Pagination from '../../components/Paginate';
 
 const Activities = () => {
   const outlet = useOutlet()
@@ -35,7 +35,7 @@ const ActivitiesPage = () => {
    
    
   }
-  const { data, refetch, isFetching, isPlaceholderData, isError,isSuccess } = useQuery({
+  const { data, isFetching, isError,isSuccess } = useQuery({
     queryKey: ['member-account-table', filter],
     queryFn: fetchData,
     refetchOnMount: true,

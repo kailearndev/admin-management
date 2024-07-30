@@ -122,7 +122,6 @@ const Create = () => {
         onSubmit: handleCreatePost,
         validationSchema: createActivitiesValidate
     })
-    console.log(formik.errors);
 
 
     return (

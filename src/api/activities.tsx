@@ -1,4 +1,3 @@
-import { ActivitiesValue } from "../pages/Activities/type"
 import http from "./api"
 
 const getActivitiesDetail = async (id: string | undefined) => {

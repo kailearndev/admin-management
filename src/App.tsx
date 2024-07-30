@@ -1,5 +1,4 @@
 // import React from 'react';
-import { lazy } from 'react';
 import {
   Outlet,
   RouterProvider,
@@ -12,15 +11,15 @@ import ToasterProvider from './components/ToasterProvider';
 import Menu from './components/menu/Menu';
 import Activities from './pages/Activities/Activities';
 import Login from './pages/Auth/Login';
-import Calendar from './pages/Calendar';
 import Error from './pages/Error';
 import ProtectPage from './pages/ProtectLayout';
 import EditProfile from './pages/User/EditProfile';
 import Profile from './pages/User/Profile';
 
-import CreateActivities from './pages/Activities/Create'
-import DeatailActivities from './pages/Activities/Detail'
-import { LoadingProvider } from './components/LoadingContext';
+import CreateActivities from './pages/Activities/Create';
+import DeatailActivities from './pages/Activities/Detail';
+import Education from './pages/Education/Education';
+import EducationDetail from './pages/Education/EducationDetail';
 
 function App() {
 
@@ -90,7 +89,11 @@ function App() {
 
           {
             path: '/education',
-            element: <Calendar />,
+            element: <Education />,
+            children: [{
+              path: ':id',
+              element: <EducationDetail/>
+            }]
           },
 
           // {
