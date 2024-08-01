@@ -126,7 +126,10 @@ const Create = () => {
 
     return (
         <>
-            <div className='flex justify-end'>
+            <div className='flex justify-end gap-2'>
+            <button onClick={() => navigate('..', {
+                    relative: 'path'
+                })} className='btn '>Discard Changes</button>
                 <button disabled={!!Object.keys(formik.errors).length || !formik.dirty} onClick={() => formik.handleSubmit()} className='btn btn-primary'>Save</button>
             </div>
 

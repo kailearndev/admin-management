@@ -389,7 +389,7 @@ const EditProfile = () => {
                   <span className="whitespace-nowrap">Instagram</span>
                 </div>
                 <input
-                  maxLength={12}
+                 
                   type="text"
                   placeholder="Type here"
                   value={formik.values?.instagramUrl}
@@ -558,7 +558,7 @@ const EditProfile = () => {
                   <span className="whitespace-nowrap">Phone</span>
                 </div>
                 <input
-                  maxLength={12}
+                 
                   type="text"
                   placeholder="Type here"
                   value={formik.values?.phone}
@@ -575,7 +575,7 @@ const EditProfile = () => {
                   <span className="whitespace-nowrap">Facebook</span>
                 </div>
                 <input
-                  maxLength={12}
+             
                   type="text"
                   placeholder="Type here"
                   value={formik.values?.facebookUrl}
@@ -590,7 +590,7 @@ const EditProfile = () => {
                   <span className="whitespace-nowrap">X</span>
                 </div>
                 <input
-                  maxLength={12}
+                 
                   type="text"
                   placeholder="Type here"
                   value={formik.values?.twitterUrl}

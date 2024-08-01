@@ -4,8 +4,7 @@ import toast from 'react-hot-toast'
 
 const http = axios.create({
     baseURL: 'https://demo.kaidev.site/api/',
-
-    timeout: 10000,
+    timeout: 600000,
     headers: {
         'Content-Type': 'application/json',
         Accept: 'application/json'

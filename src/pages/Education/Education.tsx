@@ -1,6 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
 import React from 'react';
-import toast from 'react-hot-toast';
 import { Outlet, useNavigate, useOutlet } from 'react-router-dom';
 import { EducationService } from '../../api/education-service';
 import { useLoading } from '../../components/LoadingContext';
@@ -20,7 +19,7 @@ const EducationPage = () => {
 
     const { setLoading } = useLoading();
 
-    const navigate = useNavigate()
+const navigate = useNavigate()
     const fetchData = async ({
         queryKey
     }: {
@@ -34,7 +33,7 @@ const EducationPage = () => {
 
 
     }
-    const { data, isFetching, isError, isSuccess } = useQuery({
+    const { data} = useQuery({
         queryKey: ['education', filter],
         queryFn: fetchData,
         refetchOnMount: true,
@@ -42,49 +41,14 @@ const EducationPage = () => {
 
     })
 
-    React.useEffect(() => {
-        if (isFetching) {
-            toast.loading('Loading...', { id: 'promiseUsers' });
-        }
-        if (isError) {
-            toast.error('Error while getting the data!', {
-                id: 'promiseUsers',
-            });
-        }
-        if (isSuccess) {
-            toast.success('Got the data successfully!', {
-                id: 'promiseUsers',
-            });
-        }
-    }, [isError, isFetching, isSuccess]);
+    
 
 
     return (
         <div className='flex flex-col gap-5'>
-            <button
-                className="z-50
-        fixed
-        bottom-4
-        right-4
-        bg-blue-500
-        text-white
-        p-3
-        rounded-full
-        shadow-lg
-        hover:bg-blue-600
-        focus:outline-none
-        focus:ring-2
-        focus:ring-blue-500
-        transition
-        duration-300
-      "
-                onClick={() => navigate(data?.id as string)}
-            >
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-6">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
-                </svg>
-
-            </button>
+         <div className='flex justify-end gap-2'>
+            <button className='btn'   onClick={() => navigate(data?.id as string)}>Edit</button>
+         </div>
             <div className="divider divider-start text-3xl">EDUCATION
             </div>
             <label className="form-control w-full ">
@@ -106,7 +70,7 @@ const EducationPage = () => {
                 <div className="label mb-3">
                     <span className="title font-bold">Experiences</span>
                 </div>
-                {data?.experiences.map((item, idx) =>
+                {data?.experiences.map((item,idx) =>
                     <ul key={idx} className="timeline timeline-snap-icon max-md:timeline-compact timeline-vertical">
                         <li>
                             <div className="timeline-middle">
@@ -135,7 +99,7 @@ const EducationPage = () => {
                 <div className="label mb-3">
                     <span className="title font-bold">Educations</span>
                 </div>
-                {data?.educations.map((item, idx) => <ul key={idx} className="timeline timeline-snap-icon max-md:timeline-compact timeline-vertical">
+                {data?.educations.map((item,idx) => <ul key={idx} className="timeline timeline-snap-icon max-md:timeline-compact timeline-vertical">
                     <li>
                         <div className="timeline-middle">
                             <svg
@@ -180,7 +144,7 @@ const EducationPage = () => {
                         </thead>
                         <tbody>
                             {/* row 1 */}
-                            {data?.degrees.map((item, idx) =>
+                            {data?.degrees.map((item,idx) =>
                                 <tr key={idx}>
                                     <th>{item.name}</th>
                                     <td>{item.description}</td>
